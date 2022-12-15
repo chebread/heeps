@@ -1,23 +1,8 @@
-import "./App.css";
-import logo from "./logo.svg";
+import Router from 'Router';
 
-function App() {
-  return (
-    <div className="App" role="main">
-      <article className="App-article">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h3>Welcome to React!</h3>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </article>
-    </div>
-  );
-}
+const App = () => {
+  const isLogged = false;
+  return <Router isLogged={isLogged} />;
+};
 
 export default App;
