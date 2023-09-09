@@ -1,64 +1,56 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  updateProfile,
+} from 'firebase/auth';
 import { auth } from 'lib/api/auth';
-import isEmailFormat from 'lib/utils/isEmailFormat';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-
-  const onChange = e => {
+  const navigate = useNavigate();
+  const onClickLogin = async e => {
     const {
-      target: { value, name },
+      target: { name },
     } = e;
-    if (name === 'email') {
-      setEmail(value);
+    if (name === 'gl') {
+      const provider = new GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+      await signInWithPopup(auth, provider)
+        .then(result => {
+          const user = result.user;
+          updateProfile(auth.currentUser, {
+            displayName: 'Sam smith',
+            photoURL:
+              'https://i.pinimg.com/originals/12/d0/cd/12d0cd704833e15b3d2478af9a709d93.jpg',
+          })
+            .then(() => {
+              console.log('succeed');
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          console.log(user);
+          navigate('/');
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-    if (name === 'password') {
-      setPassword(value);
+    if (name === 'ap') {
     }
-  };
-  const onKeyDown = async e => {
-    const { keyCode } = e;
-    const isEnter = keyCode === 13;
-    if (isEnter) {
-      const isEmailFormatMatched = isEmailFormat(email);
-      const isPwFormatMatched = true;
-      if (isEmailFormatMatched && isPwFormatMatched) {
-        await login({ email, password });
-      } else {
-        console.log('not logged');
-      }
-    }
-  };
-  const login = async ({ email, password }) => {
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch(error => {
-        console.log(error);
-        // ..
-      });
   };
   return (
     <div>
-      <h1>email</h1>
-      <input
-        name="email"
-        type="email"
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
+      <h1>Google</h1>
+      <button name="gl" onClick={onClickLogin}>
+        Google Login
+      </button>
 
-      <h1>password</h1>
-      <input
-        name="password"
-        type="password"
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
+      <h1>Apple</h1>
+      <button name="ap" onClick={onClickLogin}>
+        Apple Login
+      </button>
     </div>
   );
 };

@@ -1,15 +1,9 @@
 import SvgError from 'icons/SvgError';
 import SvgHome from 'icons/SvgHome';
-import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import FullScreen from 'layouts/FullScreen';
 
 const NotLoadedFile = () => {
-  const navigate = useNavigate();
-
-  const onClickRedirect = () => navigate('/');
-  return 404;
   return (
     <FullScreen>
       <CenterScreen>
@@ -25,7 +19,7 @@ const NotLoadedFile = () => {
 
       <FollowWrapper>
         <FollowButtonWrapper>
-          <FollowButton onClick={onClickRedirect}>
+          <FollowButton>
             <SvgHome />
           </FollowButton>
         </FollowButtonWrapper>

@@ -15,8 +15,8 @@ const GlobalStyles = createGlobalStyle`
     color: #fff;
   }
   ::selection {
-    background-color: #0077ee;
-    color: black;
+    background-color: rgb(0, 119, 238);
+    /* color: rgb(255, 136,15); */
   }
 `;
 

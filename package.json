@@ -1,7 +1,7 @@
 {
   "name": "heeps",
   "scripts": {
-    "start": "bun dev --hot --port=8080"
+    "start": "yarn start"
   },
   "version": "0.1.61",
   "dependencies": {
@@ -22,7 +22,7 @@
     ]
   },
   "devDependencies": {
-    "typescript": "latest",
-    "react-refresh": "0.10.0"
+    "react-refresh": "0.10.0",
+    "typescript": "latest"
   }
 }
